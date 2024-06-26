@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.530">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Insert Name Here">
+<meta name="author" content="Yuxuan Wang">
 
 <title>Project</title>
 <style>
@@ -57,7 +57,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Insert Name Here </p>
+             <p>Yuxuan Wang </p>
           </div>
   </div>
     
@@ -75,12 +75,61 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="question-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  distance by tip
+t = 7.9216, df = 1013.3, p-value = 6.142e-15
+alternative hypothesis: true difference in means between group yes and group no is not equal to 0
+95 percent confidence interval:
+ 1.352460 2.243148
+sample estimates:
+mean in group yes  mean in group no 
+         6.366350          4.568546 </code></pre>
+</div>
+</div>
+<p>Conclusion Based on the analysis, state a clear conclusion. For example:</p>
+<p>The analysis indicates a significant relationship between the distance traveled in a taxi and the likelihood of tipping. Specifically, trips involving longer distances tend to result in tips more frequently than shorter trips. This suggests that passengers may feel more inclined to tip on longer journeys, possibly due to a higher fare or a greater satisfaction with the service provided over the extended time.</p>
 </section>
 <section id="question-2" class="level2">
 <h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  tip_table
+X-squared = 8.6318, df = 1, p-value = 0.003303</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  company_group        Mean_Distance Median_Distance SD_Distance
+  &lt;chr&gt;                        &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+1 Chicago Independents          7.08            2.09        7.57
+2 Other Companies               6.15            1.75        7.36</code></pre>
+</div>
+</div>
 </section>
 <section id="your-own-question" class="level2">
 <h2 class="anchored" data-anchor-id="your-own-question">Your own question</h2>
+<p>Conclusion: There is a significant relationship between the taxi company and the likelihood of receiving tips. Data analysis reveals that passengers of Chicago Independents are statistically more likely to tip compared to those using other companies. Specifically, the tipping percentage for Chicago Independents is notably higher than that of other companies, supported by both visual and statistical evidence. This suggests that either the service quality or customer satisfaction—or possibly both—are perceived as better when riding with Chicago Independents. Such insights could be invaluable for other companies aiming to improve their services and increase tipping rates.</p>
+<p>Factors to Consider Service Quality: It could be inferred that Chicago Independents may offer better service, leading to higher tips. Customer Satisfaction: High tipping rates could also suggest greater customer satisfaction with Chicago Independents. Company Policies: Differences in tipping could be influenced by company policies regarding driver interaction, fare rates, or other service-related factors.</p>
 </section>
 
 </main>
@@ -164,6 +213,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -198,7 +265,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -246,7 +317,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
