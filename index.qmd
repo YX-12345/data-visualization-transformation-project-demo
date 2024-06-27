@@ -1,5 +1,5 @@
 ---
-title: "Project"
+title: "Project Demo"
 author: "Yuxuan Wang"
 subtitle: "Investigation into Chicago taxis"
 echo: false
@@ -8,7 +8,17 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Packages 
+## Packages
+
+### Description
+
+A taxi is a type of vehicle for hire with a driver. Often seen as a yellow vehicle, taxi drivers charge passengers money to transport them from one place to another. These data contain information on a subset of taxi trips in the city of Chicago in 2022. For example, it may be reasonable to think the longer the taxi ride is, the more likely a passenger is to tip. If someone is considering working for a taxi company, they may wonder if one company tends to get more tips than the others.
+
+### Research Questions：
+
+1.  Is there there a relationship between the distance (in miles) someone travels in a taxi and if they tip or not?
+
+2.  Do taxi passengers tend to tip more for the company Chicago Independents than the other companies?
 
 ```{r}
 #| warning: false
@@ -19,6 +29,9 @@ library(scales)
 ```
 
 ## Question 1
+
+Is there there a relationship between the distance (in miles) someone travels in a taxi and if they tip or not?
+
 ```{r}
 
 # Boxplot of distance by tipping behavior
@@ -27,17 +40,34 @@ ggplot(taxi, aes(x = tip, y = distance)) +
   labs(title = "Comparison of Taxi Trip Distances by Tipping Behavior",
        x = "Tipped", y = "Distance (miles)")
 
-# Assuming 'distance' is normally distributed
-t_test_results <- t.test(distance ~ tip, data = taxi)
-t_test_results
+# Violin Plot of distance by tipping behavior
+ggplot(taxi, aes(x = tip, y = distance)) +
+  geom_violin(trim = FALSE) +
+  labs(title = "Density and Distribution of Taxi Trip Distances by Tipping Behavior",
+       x = "Tipped", y = "Distance (miles)")
+
+# Assuming the tip column is a factor
+# Jitter and smooth graphs of distance by tipping behavior
+taxi$tip_numeric <- as.numeric(taxi$tip == "yes")
+ggplot(taxi, aes(x = distance, y = tip_numeric)) +
+  geom_jitter(alpha = 0.5, color = "blue", width = 0.1, height = 0.1) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), color = "red") +
+  labs(title = "Relationship Between Taxi Trip Distance and Tipping",
+       x = "Distance (miles)", y = "Probability of Tipping (1 = Yes, 0 = No)",
+       subtitle = "Logistic Regression with Jitter") +
+  theme_minimal()
 
 ```
-Conclusion
-Based on the analysis, state a clear conclusion. For example:
 
-The analysis indicates a significant relationship between the distance traveled in a taxi and the likelihood of tipping. Specifically, trips involving longer distances tend to result in tips more frequently than shorter trips. This suggests that passengers may feel more inclined to tip on longer journeys, possibly due to a higher fare or a greater satisfaction with the service provided over the extended time.
+#### Conclusion：
 
-## Question 2 
+The analysis shows a significant relationship between the distance traveled in a taxi and the likelihood of receiving a tip. Longer taxi trips consistently show a higher probability of tipping, as evidenced by logistic regression and supported by box and violin plot distributions. These findings suggest that passengers are more inclined to tip on longer journeys, likely due to the higher fares and increased service satisfaction over extended trips.
+
+
+## Question 2
+
+Do taxi passengers tend to tip more for the company Chicago Independents than the other companies?
+
 ```{r}
 # Create a new variable to compare Chicago Independents vs others
 taxi <- taxi %>%
@@ -56,14 +86,6 @@ ggplot(tipping_percentage, aes(x = company_group, y = Tipping_Percentage, fill =
   labs(title = "Tipping Percentage: Chicago Independents vs Other Companies",
        x = "", y = "Tipping Percentage (%)")
 
-
-# Assuming 'tip' is binary and we are looking at frequency
-# Chi-squared test for independence in tipping behavior
-tip_table <- table(taxi$company_group, taxi$tip)
-chi_squared_test <- chisq.test(tip_table)
-chi_squared_test
-
-
 # Summary statistics for tipping by group
 tipping_stats <- taxi %>%
   group_by(company_group) %>%
@@ -78,15 +100,17 @@ print(tipping_stats)
 
 ```
 
+### Conclusion:
 
-## Your own question 
+Based on the analysis of the provided data, it appears that there is a difference in tipping behavior between the company Chicago Independents and other taxi companies. Specifically, the data indicates that passengers tend to tip more frequently when riding with Chicago Independents compared to other companies.
 
-Conclusion:
-There is a significant relationship between the taxi company and the likelihood of receiving tips. Data analysis reveals that passengers of Chicago Independents are statistically more likely to tip compared to those using other companies. Specifically, the tipping percentage for Chicago Independents is notably higher than that of other companies, supported by both visual and statistical evidence. This suggests that either the service quality or customer satisfaction—or possibly both—are perceived as better when riding with Chicago Independents. Such insights could be invaluable for other companies aiming to improve their services and increase tipping rates.
+The comparison shows that the tipping percentage for Chicago Independents is approximately 94.8%, whereas for other companies it is around 91.8%. This suggests that passengers are slightly more inclined to leave a tip when they use the services of Chicago Independents.
 
-Factors to Consider
+
+## Factors to Consider：
+
 Service Quality: It could be inferred that Chicago Independents may offer better service, leading to higher tips.
+
 Customer Satisfaction: High tipping rates could also suggest greater customer satisfaction with Chicago Independents.
+
 Company Policies: Differences in tipping could be influenced by company policies regarding driver interaction, fare rates, or other service-related factors.
-
-

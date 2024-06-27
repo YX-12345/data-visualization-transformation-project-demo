@@ -8,7 +8,7 @@
 
 <meta name="author" content="Yuxuan Wang">
 
-<title>Project</title>
+<title>Project Demo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -46,7 +46,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project</h1>
+<h1 class="title">Project Demo</h1>
 <p class="subtitle lead">Investigation into Chicago taxis</p>
 </div>
 
@@ -72,9 +72,21 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<section id="description" class="level3">
+<h3 class="anchored" data-anchor-id="description">Description</h3>
+<p>A taxi is a type of vehicle for hire with a driver. Often seen as a yellow vehicle, taxi drivers charge passengers money to transport them from one place to another. These data contain information on a subset of taxi trips in the city of Chicago in 2022. For example, it may be reasonable to think the longer the taxi ride is, the more likely a passenger is to tip. If someone is considering working for a taxi company, they may wonder if one company tends to get more tips than the others.</p>
+</section>
+<section id="research-questions" class="level3">
+<h3 class="anchored" data-anchor-id="research-questions">Research Questions：</h3>
+<ol type="1">
+<li><p>Is there there a relationship between the distance (in miles) someone travels in a taxi and if they tip or not?</p></li>
+<li><p>Do taxi passengers tend to tip more for the company Chicago Independents than the other companies?</p></li>
+</ol>
+</section>
 </section>
 <section id="question-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<p>Is there there a relationship between the distance (in miles) someone travels in a taxi and if they tip or not?</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -83,25 +95,32 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Welch Two Sample t-test
-
-data:  distance by tip
-t = 7.9216, df = 1013.3, p-value = 6.142e-15
-alternative hypothesis: true difference in means between group yes and group no is not equal to 0
-95 percent confidence interval:
- 1.352460 2.243148
-sample estimates:
-mean in group yes  mean in group no 
-         6.366350          4.568546 </code></pre>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
-<p>Conclusion Based on the analysis, state a clear conclusion. For example:</p>
-<p>The analysis indicates a significant relationship between the distance traveled in a taxi and the likelihood of tipping. Specifically, trips involving longer distances tend to result in tips more frequently than shorter trips. This suggests that passengers may feel more inclined to tip on longer journeys, possibly due to a higher fare or a greater satisfaction with the service provided over the extended time.</p>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="conclusion" class="level4">
+<h4 class="anchored" data-anchor-id="conclusion">Conclusion：</h4>
+<p>The analysis shows a significant relationship between the distance traveled in a taxi and the likelihood of receiving a tip. Longer taxi trips consistently show a higher probability of tipping, as evidenced by logistic regression and supported by box and violin plot distributions. These findings suggest that passengers are more inclined to tip on longer journeys, likely due to the higher fares and increased service satisfaction over extended trips.</p>
+</section>
 </section>
 <section id="question-2" class="level2">
 <h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<p>Do taxi passengers tend to tip more for the company Chicago Independents than the other companies?</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -111,13 +130,6 @@ mean in group yes  mean in group no
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's Chi-squared test with Yates' continuity correction
-
-data:  tip_table
-X-squared = 8.6318, df = 1, p-value = 0.003303</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   company_group        Mean_Distance Median_Distance SD_Distance
   &lt;chr&gt;                        &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -125,11 +137,17 @@ X-squared = 8.6318, df = 1, p-value = 0.003303</code></pre>
 2 Other Companies               6.15            1.75        7.36</code></pre>
 </div>
 </div>
+<section id="conclusion-1" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-1">Conclusion:</h3>
+<p>Based on the analysis of the provided data, it appears that there is a difference in tipping behavior between the company Chicago Independents and other taxi companies. Specifically, the data indicates that passengers tend to tip more frequently when riding with Chicago Independents compared to other companies.</p>
+<p>The comparison shows that the tipping percentage for Chicago Independents is approximately 94.8%, whereas for other companies it is around 91.8%. This suggests that passengers are slightly more inclined to leave a tip when they use the services of Chicago Independents.</p>
 </section>
-<section id="your-own-question" class="level2">
-<h2 class="anchored" data-anchor-id="your-own-question">Your own question</h2>
-<p>Conclusion: There is a significant relationship between the taxi company and the likelihood of receiving tips. Data analysis reveals that passengers of Chicago Independents are statistically more likely to tip compared to those using other companies. Specifically, the tipping percentage for Chicago Independents is notably higher than that of other companies, supported by both visual and statistical evidence. This suggests that either the service quality or customer satisfaction—or possibly both—are perceived as better when riding with Chicago Independents. Such insights could be invaluable for other companies aiming to improve their services and increase tipping rates.</p>
-<p>Factors to Consider Service Quality: It could be inferred that Chicago Independents may offer better service, leading to higher tips. Customer Satisfaction: High tipping rates could also suggest greater customer satisfaction with Chicago Independents. Company Policies: Differences in tipping could be influenced by company policies regarding driver interaction, fare rates, or other service-related factors.</p>
+</section>
+<section id="factors-to-consider" class="level2">
+<h2 class="anchored" data-anchor-id="factors-to-consider">Factors to Consider：</h2>
+<p>Service Quality: It could be inferred that Chicago Independents may offer better service, leading to higher tips.</p>
+<p>Customer Satisfaction: High tipping rates could also suggest greater customer satisfaction with Chicago Independents.</p>
+<p>Company Policies: Differences in tipping could be influenced by company policies regarding driver interaction, fare rates, or other service-related factors.</p>
 </section>
 
 </main>
