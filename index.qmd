@@ -1,6 +1,6 @@
 ---
 title: "Project Demo"
-author: "Phoebe W"
+author: "Phoebe"
 subtitle: "Investigation into Chicago taxis"
 echo: false
 bibliography: references.bib
@@ -63,7 +63,6 @@ ggplot(taxi, aes(x = distance, y = tip_numeric)) +
 
 The analysis shows a significant relationship between the distance traveled in a taxi and the likelihood of receiving a tip. Longer taxi trips consistently show a higher probability of tipping, as evidenced by logistic regression and supported by box and violin plot distributions. These findings suggest that passengers are more inclined to tip on longer journeys, likely due to the higher fares and increased service satisfaction over extended trips.
 
-
 ## Question 2
 
 Do taxi passengers tend to tip more for the company Chicago Independents than the other companies?
@@ -105,7 +104,6 @@ print(tipping_stats)
 Based on the analysis of the provided data, it appears that there is a difference in tipping behavior between the company Chicago Independents and other taxi companies. Specifically, the data indicates that passengers tend to tip more frequently when riding with Chicago Independents compared to other companies.
 
 The comparison shows that the tipping percentage for Chicago Independents is approximately 94.8%, whereas for other companies it is around 91.8%. This suggests that passengers are slightly more inclined to leave a tip when they use the services of Chicago Independents.
-
 
 ## Factors to Consider：
 
